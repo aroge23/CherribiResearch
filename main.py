@@ -2,19 +2,19 @@ from youtubesearchpython import VideosSearch
 from youtube_transcript_api import YouTubeTranscriptApi as ytapi
 import json as js
 
-videoSearch = VideosSearch("jahiliyyah", limit= 5)
+query = "jahiliyyah"
+videoSearch = VideosSearch(query, limit= 5)
 searches = videoSearch.result()['result']
 
 json = {}
 
-for search in searches[1:2]:
-    print(js.dumps(search, indent=4))
+for search in searches:
 
     # Time range between 2015-2019
     published = search['publishedTime']
     yearsAgo = int(published[:2])
     if (yearsAgo > 7 or yearsAgo < 3):
-        print(published)
+        print('The video {} was published {}'.format(search['title'], published))
     else:
         title = search['title']
 
@@ -38,3 +38,4 @@ for search in searches[1:2]:
         json[title] = searchjson
 
 # print(next(iter(json.items())))
+print(js.dumps(json, indent=4))
